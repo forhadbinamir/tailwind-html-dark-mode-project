@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="output.css">
+    <title>Tailwind html dark website</title>
+</head>
+
+<body class="">
+    <section class="mt-20">
+        <div class="w-1/2  mx-auto bg-slate-300 p-10 border rounded-lg">
+            <div class="flex flex-row-reverse justify-between bg-white dark:bg-black p-8 rounded-md">
+                <img class="moon w-8 h-8" src="../images/moon.png" alt="">
+                <img class="sun w-8 h-8" src="../images/sun.png" alt="">
+                <div>
+                    <h2 class="dark:text-white text-2xl text-bold">hello world</h2>
+                    <p class="dark:text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
+                        minima?</p>
+                    <button class="mt-2 bg-purple-600 dark:bg-white dark:text-black py-2 px-3 rounded text-white">Learn
+                        more</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <script>
+        const sunIcon = document.querySelector('.sun');
+        const moonIcon = document.querySelector('.moon');
+
+        const userTheme = localStorage.getItem("theme")
+        const systemTheme = window.matchMedia("(prefers-color-scheme:dark)").matches;
+
+        const iconToggle = () => {
+            sunIcon.classList.toggle('display-none')
+            moonIcon.classList.toggle('display-none')
+        }
+
+        const themeCheck = () => {
+            if (userTheme === 'dark' || (!userTheme && systemTheme)) {
+                document.documentElement.classList.add("dark");
+                moonIcon.classList.add("display-none")
+                return
+            }
+            sunIcon.classList.add("display-none")
+        }
+
+        const themeSwitch = () => {
+            if (document.documentElement.classList.contains("dark")) {
+                document.documentElement.classList.remove("dark")
+                localStorage.setItem("theme", "light")
+                iconToggle();
+                return
+            }
+            document.documentElement.classList.add("dark")
+            localStorage.setItem("theme", "dark")
+            iconToggle();
+        }
+
+        sunIcon.addEventListener('click', () => {
+            themeSwitch()
+        })
+        moonIcon.addEventListener('click', () => {
+            themeSwitch()
+        })
+
+        themeCheck()
+    </script>
+</body>
+
+</html>
